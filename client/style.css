@@ -12,11 +12,16 @@
     display: block;
 }
 
-.cardImage:hover {
-    transform: scale(1.1);
+body {
+  font-family: 'butler', sans-serif !important;
+}
+h1 {
+  font-family: 'abril_fatfaceregular' !important;
 }
 
+
 @media (max-width: 576px) {
+
   .responsiveWidth {
     width: 100% !important;
   }
@@ -29,6 +34,9 @@
 @media (min-width: 576px) {
   .responsiveWidth {
     width: 50% !important;
+  }
+  #potdimage.potd-image {
+    background-size: contain;
   }
 }
 

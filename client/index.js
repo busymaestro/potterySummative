@@ -142,17 +142,18 @@ function collectionSearch(name) {
                     var link = document.createElement("a")
                     link.setAttribute("href","#!")
                     link.setAttribute('id',"searchresult" + String(i))
+                    link.setAttribute('number',i)
                     column.appendChild(link)
                     var box = document.createElement("div")
                     box.setAttribute("class","h-100 bg-image rounded-5")
                     box.style.backgroundImage = "url('http://localhost:6970/images/" + i + "')"
-                    box.style.backgroundPosition = "center bottom"
+                    box.style.backgroundPosition = "center"
                     box.style.backgroundSize = "cover"
                     link.appendChild(box)
                     document.getElementById("collectionSearchResults").appendChild(column)
                     document.getElementById("searchresult" + String(i)).addEventListener('click',function (event) {
                         event.preventDefault();
-                        singlePotSearch(parseInt(event.currentTarget.id.slice(-1)))
+                        singlePotSearch(parseInt(this.getAttribute('number')))
                     }
                     )
                 }
