@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>1000 pots ADMIN</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./MDB/css/mdb.min.css">
+  <script src="./MDB/js/mdb.min.js" defer></script>
+  <script src="./admin.js" defer></script>
+
+</head>
+<body>
+  <div class="container-fluid gradient-fixed gradient-custom justify-content-center align-content-center align-items-center" style="height: 1500px;">
+    <h1 class="text-light text-center">1000 pots ADMIN PAGE</h1>
+    <div class="container w-75">
+      <div class="maskBlurred card w-100">
+        <div class="card-body">
+          <h3 class="card-title text-light text-center">Messages</h3>
+          <div id="messagesList" class="container">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container w-75">
+      <div class="maskBlurred card">
+        <div class="card-body p-5">
+          <div class="my-4">
+            <h2 class="text-center mb-5 text-white">Create or edit a pot:</h2>
+            <form id="newPotForm" action="#!" method="post">
+              <div class="form-outline form-white mb-4">
+                <input type="text" id="potNumber" class="form-control form-control-lg" required/>
+                <label class="form-label" for="potNumber" name="number">Pot number</label>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <input type="number" id="potPrice" class="form-control form-control-lg" required/>
+                <label class="form-label" for="potPrice" name="price">Pot price</label>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <textarea name="blurb" id="potDescription" class="form-control" rows="5" required></textarea>
+                <label class="form-label" for="potDescription">Pot description</label>
+              </div>
+              <div class="form-outline form-white mb-4">
+                <input type="text" id="potCol" class="form-control form-control-lg" required/>
+                <label class="form-label" for="potCol" name="collections">Collection</label>
+              </div>
+              <div class="mb-4">
+                <label class="form-label text-white p-2" for="potpicturefile">Upload pot image here:</label>
+                <input type="file" class="form-control" id="potpicturefile" />
+              </div>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="forsale" checked/>
+                <label class="form-check-label text-light" for="forsale">For sale</label>
+              </div>
+              <button type="submit" class="btn btn-light w-100 mb-4 ripple">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

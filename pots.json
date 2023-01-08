@@ -1,0 +1,1 @@
+[{"number":1,"price":"150","sold":true,"blurb":"this is a new description","collections":"tester1"},{"number":2,"price":100,"sold":true,"blurb":"beautiful again","collections":["tester1","tester3"]},{"number":3,"price":100,"sold":true,"blurb":"beautiful again","collections":["tester3","tester4"]}]

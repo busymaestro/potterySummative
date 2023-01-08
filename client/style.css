@@ -1,0 +1,95 @@
+.container {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.cardImage {
+    max-width: 100px !important;
+    height: auto;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.5s;
+    display: block;
+}
+
+.cardImage:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 576px) {
+  .responsiveWidth {
+    width: 100% !important;
+  }
+  .transparent-gradient {
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0));
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0))
+  }
+}
+
+@media (min-width: 576px) {
+  .responsiveWidth {
+    width: 50% !important;
+  }
+}
+
+div.maskBlurred {
+  backdrop-filter: blur(15px);
+  background-color: rgba(0, 0, 0, .1);
+  border-radius: 2vmax;
+  border: 5px solid rgba(rgba(0, 0, 0, 0.2), 255, 255, .1);
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+
+#searchResults {
+    min-height: 50vh;
+}
+
+.diagonalDivContainer {
+  min-height: 50vh;
+}
+
+.diagonalDivImage {
+  margin-left: 75%;
+  width: 25%;
+  z-index: 2;
+  position: relative;
+  height: auto;
+}
+
+.diagonalDivCard {
+  width: 85%;
+  z-index: 1;
+  position: relative;
+  margin-right: 15%;
+  margin-top: -50px;
+}
+
+.collectionIcon {
+  height: 150px;
+}
+
+img.thumbnailImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.gradient-custom {
+  background: linear-gradient(90deg, rgba(216, 113, 54, 0.87), rgb(0, 0, 0));
+}
+.gradient-custom::before {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black);
+  mask-image: linear-gradient(to bottom, transparent, black);
+  background: linear-gradient(90deg, rgb(192, 191, 189), rgba(233, 148, 36, 0.644)); 
+}
+
+.gradient-fixed.gradient-custom::before {
+  position: fixed;
+}
