@@ -18,7 +18,7 @@ if (document.readyState === 'loading') {
         separator2.className = 'col-12 col-md-6';
         cardRow.appendChild(separator2);
         var message = document.createElement('p');
-        message.className = 'text-light';
+        message.className = 'text-white-50';
         message.innerHTML = i.message;
         separator2.appendChild(message);
 
@@ -44,7 +44,7 @@ if (document.readyState === 'loading') {
         separator2.className = 'col-12 col-md-6';
         cardRow.appendChild(separator2);
         var message = document.createElement('p');
-        message.className = 'text-light';
+        message.className = 'text-white-50';
         message.innerHTML = i.message;
         separator2.appendChild(message);
 
@@ -53,8 +53,7 @@ if (document.readyState === 'loading') {
     })
   }
 
-// event listener on the newPotForm that sends a post request to the server with the new pot data
-
+//creates a new pot
 document.getElementById('newPotForm').addEventListener('submit', function (event) {
   event.preventDefault();
   var newNumber = document.getElementById('potNumber').value;
@@ -86,4 +85,31 @@ document.getElementById('newPotForm').addEventListener('submit', function (event
   })
 });
 
+//event listener for editColForm that sends a post request to the server on /editCol
+document.getElementById('editColForm').addEventListener('submit', function (event) {
+  event.preventDefault();
+  var newColName = document.getElementById('colName').value;
+  var newColMembers = document.getElementById('colMembers').value;
+  var overwrite = document.getElementById('overwrite').checked;
 
+  reqBody = {
+    "name": newColName,
+    "members": newColMembers,
+    "overwrite": overwrite
+  }
+  console.log(JSON.stringify(reqBody))
+  fetch("http://localhost:6970/editCol", {
+    headers: {
+      'Content-Type': 'application/json'
+  },
+    method: 'POST',
+    body: JSON.stringify(reqBody)
+  })
+  .then(out => {
+    if (out.ok) {
+      document.getElementById('editColForm').reset();
+    } else {
+      document.getElementById('colFormError').hidden = false;
+    }
+  })
+});

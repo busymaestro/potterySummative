@@ -17,14 +17,14 @@ app.get('/images/:number', (req, res) => {
 });
 
 //search for a single pot
-app.get('/search', (req, res) => {
+app.get('/singlePot', (req, res) => {
     number = parseInt(req.query.number);
     var result = pots.filter(e => e.number == number);
     res.send(result);
 });
 
 //search for a collection
-app.get('/collection', (req,res) => {
+app.get('/singleCollection', (req,res) => {
     if (coll[0].hasOwnProperty(req.query.term) == false) {
         res.send([]);
         return;
@@ -115,6 +115,54 @@ app.post('/newPot', (req,res) => {
     res.send("received")
     }
 })
+
+//ADMIN adds a list of pots to a collection
+function insertPots(listofPots, collection) {
+    listofPots = listofPots.split(",")
+    listofPots.forEach(element => {
+        element = parseInt(element)
+        var pot = pots.filter(e => e.number == element)
+        if (pot.length == 1) {
+            pot[0].collections.push(collection)
+        }
+    });
+    fs.writeFileSync('pots.json', JSON.stringify(pots));
+    listofPots.forEach(element => {
+        element = parseInt(element)
+        if (coll[0][collection].includes(element) == false) {
+            coll[0][collection].push(element)
+        }
+    });
+    fs.writeFileSync('collections.json', JSON.stringify(coll));
+}
+    
+
+
+
+//ADMIN creates or modifies a collection according to data sent by POST to /editCol
+app.post('/editCol', (req, res) => {
+    var body = req.body;
+    if (coll[0][body.name] == undefined) {
+        coll[0][body.name] = [];
+        insertPots(body.members, body.name)
+    }
+    else if (body.overwrite) {
+        for (i of coll[0][body.name]) {
+            var pot = pots.filter(e => e.number == i)
+            if (pot.length == 1) {
+                var index = pot[0].collections.indexOf(body.name)
+                pot[0].collections.splice(index, 1);
+            }
+        }
+        coll[0][body.name] = [];
+        insertPots(body.members, body.name)
+    } else {
+        insertPots(body.members, body.name)
+    }
+    fs.writeFileSync('collections.json', JSON.stringify(coll));
+    res.send("received");
+})
+
 
 
 app.listen(6970);

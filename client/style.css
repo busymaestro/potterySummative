@@ -13,12 +13,11 @@
 }
 
 body {
-  font-family: 'butler', sans-serif !important;
+  font-family: 'butler', sans-serif;
 }
 h1 {
-  font-family: 'abril_fatfaceregular' !important;
+  font-family: 'abril_fatfaceregular';
 }
-
 
 @media (max-width: 576px) {
 

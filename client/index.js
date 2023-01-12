@@ -67,9 +67,8 @@ document.querySelectorAll('.ripple').forEach((ripple) => {
     });
 
 //search function for a single pot
-
 function singlePotSearch(number) { 
-    fetch('http://localhost:6970/search?number=' + number)
+    fetch('http://localhost:6970/singlePot?number=' + number)
         .then(res => res.json())
         .then((res => {
             for([key,value] of Object.entries(res[0])){
@@ -115,9 +114,8 @@ function singlePotSearch(number) {
 }
 
 //search function for a collection of pots
-
 function collectionSearch(name) {
-    fetch('http://localhost:6970/collection?term=' + name)
+    fetch('http://localhost:6970/singleCollection?term=' + name)
         .then(res => res.json())
         .then(res => {
             while (document.getElementById("collectionSearchResults").firstChild) {
