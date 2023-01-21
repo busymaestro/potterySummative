@@ -1,3 +1,13 @@
+// initialise MDB inputs
+document.querySelectorAll('.form-outline').forEach((formOutline) => {
+  new mdb.Input(formOutline).init();
+});
+
+// initialise MDB ripple effect
+document.querySelectorAll('.ripple').forEach((ripple) => {
+  new mdb.Ripple(ripple).init();
+  });
+
 //messages function on dom loaded
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function () {
@@ -97,7 +107,6 @@ document.getElementById('editColForm').addEventListener('submit', function (even
     "members": newColMembers,
     "overwrite": overwrite
   }
-  console.log(JSON.stringify(reqBody))
   fetch("http://localhost:6970/editCol", {
     headers: {
       'Content-Type': 'application/json'
@@ -113,3 +122,37 @@ document.getElementById('editColForm').addEventListener('submit', function (even
     }
   })
 });
+
+//event listener for browsePots that sends a get request to the server on /browsePots
+document.getElementById('browsePots').addEventListener('submit', function (event) {
+  event.preventDefault();
+  var inputParams = document.getElementById('browseParam').value;
+  var inputVal = document.getElementById('browseTerm').value;
+  fetch("http://localhost:6970/browsePots?param=" + inputParams + "&term=" + inputVal)
+  .then(out => out.json())
+  .then(out => {
+    var browseResults = document.getElementById('browseResults');
+    while (browseResults.firstChild) {
+      browseResults.removeChild(browseResults.firstChild);
+    }
+    if (out.length == 0) {
+      document.getElementById('browseFormError').hidden = false;
+      setTimeout(() => {
+        document.getElementById("noResultsWarning").hidden = true;
+      }, 5000);
+      return;
+    } else {
+      document.getElementById('browseFormError').hidden = true;
+      document.getElementById('browsePots').reset();
+      for (i of out) {
+        termColumn = document.createElement('div');
+        termColumn.className = 'col-6 col-sm-4 m-2 col-md-3 col-lg-2 p-2 bg-image rounded-2 collectionIcon text-light d-flex align-items-center justify-content-center align-content-center';
+        termColumn.innerHTML = i['number'];
+        termColumn.style.backgroundImage = "url('http://localhost:6970/images/" + i['number'] + "')";
+        browseResults.appendChild(termColumn);
+      }
+      document.getElementById('browseResultsContainer').hidden = false;
+    }
+  })  
+  .catch(err => console.log(err))
+})

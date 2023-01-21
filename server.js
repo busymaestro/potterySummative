@@ -11,19 +11,19 @@ app.use(bp.urlencoded({ extended: true }))
 var pots = JSON.parse(fs.readFileSync('pots.json', 'utf8'));
 var coll = JSON.parse(fs.readFileSync('collections.json', 'utf-8'))
 
-//serve images
+//get route serve images
 app.get('/images/:number', (req, res) => {
     res.sendFile(__dirname + '/assets/images/' + req.params.number + '.jpg');
 });
 
-//search for a single pot
+//get route search for a single pot
 app.get('/singlePot', (req, res) => {
     number = parseInt(req.query.number);
     var result = pots.filter(e => e.number == number);
     res.send(result);
 });
 
-//search for a collection
+//get route search for a collection
 app.get('/singleCollection', (req,res) => {
     if (coll[0].hasOwnProperty(req.query.term) == false) {
         res.send([]);
@@ -33,7 +33,7 @@ app.get('/singleCollection', (req,res) => {
     res.send(result);
 });
 
-//serve pot of the day
+//get route serve pot of the day
 app.get('/potd', (req, res) => {
     var date = new Date();
     var day = date.getDate();
@@ -43,7 +43,7 @@ app.get('/potd', (req, res) => {
     res.send(pots[potd]);
 });
 
-//add message to messages.json
+//post route add message to messages.json
 app.post('/contact', (req, res) => {
     console.log(req.body);
     var message = {
@@ -56,7 +56,7 @@ app.post('/contact', (req, res) => {
     res.send("Message received");
 });
 
-//buys a pot
+//post route buys a pot
 app.post('/buy', (req, res) => {
     console.log(req.body)
     var number = req.body.number;
@@ -66,13 +66,13 @@ app.post('/buy', (req, res) => {
     res.send("Pot bought");
 });
 
-//ADMIN serves messages
+//ADMIN get route serves messages
 app.get('/messages', (req, res) => {
     var messages = JSON.parse(fs.readFileSync('messages.json', 'utf8'));
     res.send(messages);
 });
 
-//ADMIN adds or updates a pot
+//ADMIN post route adds or updates a pot
 app.post('/newPot', (req,res) => {
     var body = req.body
     var test = pots.filter(e => e.number == body.number)
@@ -137,8 +137,6 @@ function insertPots(listofPots, collection) {
 }
     
 
-
-
 //ADMIN creates or modifies a collection according to data sent by POST to /editCol
 app.post('/editCol', (req, res) => {
     var body = req.body;
@@ -163,6 +161,12 @@ app.post('/editCol', (req, res) => {
     res.send("received");
 })
 
-
+//get route for prowsePots that returns all pot objects where the param attribute contains the term
+app.get('/browsePots', (req, res) => {
+    var term = req.query.term;
+    var param = req.query.param;
+    var result = pots.filter(e => e[param].toString().includes(term));
+    res.send(result);
+})
 
 app.listen(6970);

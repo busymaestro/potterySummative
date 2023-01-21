@@ -12,7 +12,7 @@ if (document.readyState === 'loading') {
                         document.getElementById('potd' + key).innerHTML = '#' + value;}
                 }
                 document.getElementById('potdimage').style.backgroundImage = 'url(http://localhost:6970/images/' + out.number + ')';
-                document.getElementById('potdBuyButton').number = out.number;
+                document.getElementById('potdBuyButton').value = out.number;
                 if (out.sold == true) {
                     document.getElementById('potdBuyButton').innerHTML = 'Sold';
                     document.getElementById('potdBuyButton').disabled = true;
@@ -30,7 +30,7 @@ if (document.readyState === 'loading') {
                         document.getElementById('potd' + key).innerHTML = '#' + value;}
                 }
                 document.getElementById('potdimage').style.backgroundImage = 'url(http://localhost:6970/images/' + out.number + ')';
-                document.getElementById('potdBuyButton').number = out.number;
+                document.getElementById('potdBuyButton').value = out.number;
                 if (out.sold == true) {
                     document.getElementById('potdBuyButton').innerHTML = 'Sold';
                     document.getElementById('potdBuyButton').disabled = true;
@@ -40,7 +40,7 @@ if (document.readyState === 'loading') {
 
 //potd buy button
 document.getElementById('potdBuyButton').addEventListener('click', function () {
-    var number = this.number;
+    var number = this.value;
     fetch('http://localhost:6970/buy', {
         method: 'POST',
         headers: {
@@ -77,7 +77,7 @@ function singlePotSearch(number) {
                 else if (key == 'number') {
                     document.getElementById('search' + key).innerHTML = '#' + value;};}
             document.getElementById('searchpicture').src = 'http://localhost:6970/images/' + res[0].number
-            document.getElementById('searchBuyButton').number = res[0].number
+            document.getElementById('searchBuyButton').value = res[0].value
             if (res[0].sold == true) {
                 document.getElementById('searchBuyButton').innerHTML = 'Sold';
                 document.getElementById('searchBuyButton').disabled = true;
@@ -92,7 +92,7 @@ function singlePotSearch(number) {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({"number": number})
+                        body: JSON.stringify({"number": value})
                     })
                     .then(res => {
                         if (res.ok) {
@@ -123,7 +123,7 @@ function collectionSearch(name) {
             }
             var heading = document.createElement("h3");
             heading.setAttribute("class","text-center");
-            heading.innerHTML = "Search results for '" + name + "'";
+            heading.innerHTML = "Search results for " + name.split("_").join(" ");
             document.getElementById("collectionSearchResults").appendChild(heading);
             if (res.length == 0) {
                 document.getElementById("searchContainer").hidden = true;
@@ -137,17 +137,25 @@ function collectionSearch(name) {
                 for (i of res) {
                     var column = document.createElement("div")
                     column.setAttribute("class","col-6 col-sm-4 col-md-3 col-lg-2 p-2 collectionIcon")
+
                     var link = document.createElement("a")
                     link.setAttribute("href","#!")
                     link.setAttribute('id',"searchresult" + String(i))
                     link.setAttribute('number',i)
                     column.appendChild(link)
+
                     var box = document.createElement("div")
                     box.setAttribute("class","h-100 bg-image rounded-5")
                     box.style.backgroundImage = "url('http://localhost:6970/images/" + i + "')"
                     box.style.backgroundPosition = "center"
                     box.style.backgroundSize = "cover"
                     link.appendChild(box)
+
+                    var altText = document.createElement("p")
+                    altText.setAttribute("class","visually-hidden")
+                    altText.innerHTML = "Click here for more info about pot number" + i
+                    link.appendChild(altText)
+
                     document.getElementById("collectionSearchResults").appendChild(column)
                     document.getElementById("searchresult" + String(i)).addEventListener('click',function (event) {
                         event.preventDefault();
