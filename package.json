@@ -1,0 +1,23 @@
+{
+  "name": "potterysummative",
+  "version": "1.0.0",
+  "description": "npm packages for my summative project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "pretest": "eslint --ignore-path .gitignore ."
+  },
+  "author": "John Bannerman",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "nodemon": "^2.0.20"
+  }
+}
