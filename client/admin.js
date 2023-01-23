@@ -1,87 +1,89 @@
 // initialise MDB inputs
-document.querySelectorAll('.form-outline').forEach((formOutline) => {
+document.querySelectorAll('.form-outline').forEach(function (formOutline) {
+  // eslint-disable-next-line
   new mdb.Input(formOutline).init();
 });
 
 // initialise MDB ripple effect
-document.querySelectorAll('.ripple').forEach((ripple) => {
+document.querySelectorAll('.ripple').forEach(function (ripple) {
+  // eslint-disable-next-line
   new mdb.Ripple(ripple).init();
   });
 
-//messages function on dom loaded
+//  messages function on dom loaded
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function () {
-    fetch("http://localhost:6970/messages")
+    fetch('http://localhost:6970/messages')
     .then(out => out.json())
     .then(out => {
-      for (i of out) {
-        var cardRow = document.createElement('div');
+      for (const i of out) {
+        const cardRow = document.createElement('div');
         cardRow.className = 'row px-3';
-        var separator1 = document.createElement('div');
+        const separator1 = document.createElement('div');
         separator1.className = 'col-12 col-md-6';
         cardRow.appendChild(separator1);
-        var email = document.createElement('p');
+        const email = document.createElement('p');
         email.className = 'text-light';
         email.innerHTML = i.email;
         separator1.appendChild(email);
-        var separator2 = document.createElement('div');
+        const separator2 = document.createElement('div');
         separator2.className = 'col-12 col-md-6';
         cardRow.appendChild(separator2);
-        var message = document.createElement('p');
+        const message = document.createElement('p');
         message.className = 'text-white-50';
         message.innerHTML = i.message;
         separator2.appendChild(message);
 
         document.getElementById('messagesList').appendChild(cardRow);
       }
-    })
-  })
+    });
+  });
 } else {
-    fetch("http://localhost:6970/messages")
+    fetch('http://localhost:6970/messages')
     .then(out => out.json())
     .then(out => {
-      for (i of out) {
-        var cardRow = document.createElement('div');
+      for (const i of out) {
+        const cardRow = document.createElement('div');
         cardRow.className = 'row px-3';
-        var separator1 = document.createElement('div');
+        const separator1 = document.createElement('div');
         separator1.className = 'col-12 col-md-6';
         cardRow.appendChild(separator1);
-        var email = document.createElement('p');
+        const email = document.createElement('p');
         email.className = 'text-light';
         email.innerHTML = i.email;
         separator1.appendChild(email);
-        var separator2 = document.createElement('div');
+        const separator2 = document.createElement('div');
         separator2.className = 'col-12 col-md-6';
         cardRow.appendChild(separator2);
-        var message = document.createElement('p');
+        const message = document.createElement('p');
         message.className = 'text-white-50';
         message.innerHTML = i.message;
         separator2.appendChild(message);
 
         document.getElementById('messagesList').appendChild(cardRow);
       }
-    })
+    });
   }
 
-//creates a new pot
+//  creates a new pot
 document.getElementById('newPotForm').addEventListener('submit', function (event) {
   event.preventDefault();
-  var newNumber = document.getElementById('potNumber').value;
-  var newPrice = document.getElementById('potPrice').value;
-  var newBlurb = document.getElementById('potDescription').value;
-  var newSold = document.getElementById('forsale').checked;
-  var newCol = document.getElementById('potCol').value;
-  var newPicture = document.getElementById('potpicturefile').files[0];
+  const newNumber = document.getElementById('potNumber').value;
+  const newPrice = document.getElementById('potPrice').value;
+  const newBlurb = document.getElementById('potDescription').value;
+  const newSold = document.getElementById('forsale').checked;
+  const newCol = document.getElementById('potCol').value;
+  const newPicture = document.getElementById('potpicturefile').files[0];
 
-  reqBody = {
-    "number": newNumber,
-    "price": newPrice,
-    "blurb": newBlurb,
-    "sold": newSold,
-    "collection": newCol,
-  }
-  console.log(JSON.stringify(reqBody))
-  fetch("http://localhost:6970/newPot", {
+  const reqBody = {
+    number: newNumber,
+    price: newPrice,
+    blurb: newBlurb,
+    sold: newSold,
+    collection: newCol
+  };
+  console.log(JSON.stringify(reqBody));
+  fetch('http://localhost:6970/newPot', {
     headers: {
       'Content-Type': 'application/json'
   },
@@ -92,22 +94,22 @@ document.getElementById('newPotForm').addEventListener('submit', function (event
     if (out.ok) {
       document.getElementById('newPotForm').reset();
     }
-  })
+  });
 });
 
-//event listener for editColForm that sends a post request to the server on /editCol
+//  edits or creates a new collection
 document.getElementById('editColForm').addEventListener('submit', function (event) {
   event.preventDefault();
-  var newColName = document.getElementById('colName').value;
-  var newColMembers = document.getElementById('colMembers').value;
-  var overwrite = document.getElementById('overwrite').checked;
+  const newColName = document.getElementById('colName').value;
+  const newColMembers = document.getElementById('colMembers').value;
+  const overwrite = document.getElementById('overwrite').checked;
 
-  reqBody = {
-    "name": newColName,
-    "members": newColMembers,
-    "overwrite": overwrite
-  }
-  fetch("http://localhost:6970/editCol", {
+  const reqBody = {
+    name: newColName,
+    members: newColMembers,
+    overwrite
+  };
+  fetch('http://localhost:6970/editCol', {
     headers: {
       'Content-Type': 'application/json'
   },
@@ -120,39 +122,38 @@ document.getElementById('editColForm').addEventListener('submit', function (even
     } else {
       document.getElementById('colFormError').hidden = false;
     }
-  })
+  });
 });
 
-//event listener for browsePots that sends a get request to the server on /browsePots
+// lists and filters pots by number, price or blurb
 document.getElementById('browsePots').addEventListener('submit', function (event) {
   event.preventDefault();
-  var inputParams = document.getElementById('browseParam').value;
-  var inputVal = document.getElementById('browseTerm').value;
-  fetch("http://localhost:6970/browsePots?param=" + inputParams + "&term=" + inputVal)
+  const inputParams = document.getElementById('browseParam').value;
+  const inputVal = document.getElementById('browseTerm').value;
+  fetch('http://localhost:6970/browsePots?param=' + inputParams + '&term=' + inputVal)
   .then(out => out.json())
   .then(out => {
-    var browseResults = document.getElementById('browseResults');
+    const browseResults = document.getElementById('browseResults');
     while (browseResults.firstChild) {
       browseResults.removeChild(browseResults.firstChild);
     }
-    if (out.length == 0) {
+    if (out.length === 0) {
       document.getElementById('browseFormError').hidden = false;
       setTimeout(() => {
-        document.getElementById("noResultsWarning").hidden = true;
+        document.getElementById('noResultsWarning').hidden = true;
       }, 5000);
-      return;
     } else {
       document.getElementById('browseFormError').hidden = true;
       document.getElementById('browsePots').reset();
-      for (i of out) {
-        termColumn = document.createElement('div');
+      for (const i of out) {
+        const termColumn = document.createElement('div');
         termColumn.className = 'col-6 col-sm-4 m-2 col-md-3 col-lg-2 p-2 bg-image rounded-2 collectionIcon text-light d-flex align-items-center justify-content-center align-content-center';
-        termColumn.innerHTML = i['number'];
-        termColumn.style.backgroundImage = "url('http://localhost:6970/images/" + i['number'] + "')";
+        termColumn.innerHTML = i.number;
+        termColumn.style.backgroundImage = "url('http://localhost:6970/images/" + i.number + "')";
         browseResults.appendChild(termColumn);
       }
       document.getElementById('browseResultsContainer').hidden = false;
     }
-  })  
-  .catch(err => console.log(err))
-})
+  })
+  .catch(err => console.log(err));
+});

@@ -1,31 +1,30 @@
 const express = require('express');
-const { append, json } = require('express/lib/response');
 const fs = require('fs');
 const app = express();
-const bp = require('body-parser')
+const bp = require('body-parser');
 
-app.use(express.static("client"))
-app.use(bp.json())
-app.use(bp.urlencoded({ extended: true }))
+app.use(express.static('client'));
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 
-var pots = JSON.parse(fs.readFileSync('pots.json', 'utf8'));
-var coll = JSON.parse(fs.readFileSync('collections.json', 'utf-8'))
+let pots = JSON.parse(fs.readFileSync('pots.json', 'utf8'));
+let coll = JSON.parse(fs.readFileSync('collections.json', 'utf-8'));
 
-//get route serve images
+//  get route serve images
 app.get('/images/:number', (req, res) => {
-    res.sendFile(__dirname + '/assets/images/' + req.params.number + '.jpg');
+    res.sendFile(path.join(__dirname, '/assets/images/', req.params.number, '.jpg'));
 });
 
-//get route search for a single pot
+//  get route search for a single pot
 app.get('/singlePot', (req, res) => {
-    number = parseInt(req.query.number);
-    var result = pots.filter(e => e.number == number);
+    const number = parseInt(req.query.number);
+    const result = pots.filter(e => e.number === number);
     res.send(result);
 });
 
-//get route search for a collection
-app.get('/singleCollection', (req,res) => {
-    if (coll[0].hasOwnProperty(req.query.term) == false) {
+//  get route search for a collection
+app.get('/singleCollection', (req, res) => {
+    if (Object.prototype.hasOwnProperty.call(coll[0], req.query.term) === false) {
         res.send([]);
         return;
     }
