@@ -32,27 +32,27 @@
             <h2 class="text-center mb-5 text-white">Create or edit a pot:</h2>
             <form id="newPotForm" action="#!" method="post">
               <div class="form-outline form-white mb-4">
-                <input type="text" id="potNumber" class="form-control form-control-lg" required>
+                <input type="text" id="potNumber" name="number" class="form-control form-control-lg" required>
                 <label class="form-label" for="potNumber">Pot number</label>
               </div>
               <div class="form-outline form-white mb-4">
-                <input type="number" id="potPrice" class="form-control form-control-lg" required>
+                <input type="number" id="potPrice" name="price" class="form-control form-control-lg" required>
                 <label class="form-label" for="potPrice">Pot price</label>
               </div>
               <div class="form-outline form-white mb-4">
-                <textarea name="blurb" id="potDescription" class="form-control" rows="5" required></textarea>
+                <textarea name="blurb" id="potDescription" name="blurb" class="form-control" rows="5" required></textarea>
                 <label class="form-label" for="potDescription">Pot description</label>
               </div>
               <div class="form-outline form-white mb-4">
-                <input type="text" id="potCol" class="form-control form-control-lg" required>
+                <input type="text" id="potCol" name="collection" class="form-control form-control-lg" required>
                 <label class="form-label" for="potCol">Collection</label>
               </div>
               <div class="mb-4">
                 <label class="form-label text-white p-2" for="potpicturefile">Upload pot image here:</label>
-                <input type="file" class="form-control" id="potpicturefile">
+                <input type="file" class="form-control" id="potpicturefile" name="image" accept="image/jpg" required>
               </div>
               <div class="form-check mb-4">
-                <input class="form-check-input" type="checkbox" value="" id="forsale" checked>
+                <input class="form-check-input" name="sold" type="checkbox" value="" id="forsale" checked>
                 <label class="form-check-label text-light" for="forsale">For sale</label>
               </div>
               <button type="submit" class="btn btn-light w-100 mb-4 ripple">Submit</button>

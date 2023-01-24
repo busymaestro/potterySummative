@@ -4,6 +4,17 @@ const fs = require('fs');
 const app = express();
 const bp = require('body-parser');
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '/assets/images'));
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.number + '.jpg');
+    }
+});
+const fileup = multer({ storage });
+
 app.use(express.static('client'));
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
@@ -73,8 +84,10 @@ app.get('/messages', (req, res) => {
 });
 
 //  ADMIN post route adds or updates a pot
-app.post('/newPot', (req, res) => {
+app.post('/newPot', fileup.single('image'), (req, res) => {
     const body = req.body;
+    const imagePath = req.file.path;
+    console.log(imagePath);
     const test = pots.filter(e => e.number === body.number);
     if (test.length > 0) {
         test[0].price = body.price;

@@ -68,27 +68,11 @@ if (document.readyState === 'loading') {
 //  creates a new pot
 document.getElementById('newPotForm').addEventListener('submit', function (event) {
   event.preventDefault();
-  const newNumber = document.getElementById('potNumber').value;
-  const newPrice = document.getElementById('potPrice').value;
-  const newBlurb = document.getElementById('potDescription').value;
-  const newSold = document.getElementById('forsale').checked;
-  const newCol = document.getElementById('potCol').value;
-  const newPicture = document.getElementById('potpicturefile').files[0];
-
-  const reqBody = {
-    number: newNumber,
-    price: newPrice,
-    blurb: newBlurb,
-    sold: newSold,
-    collection: newCol
-  };
-  console.log(JSON.stringify(reqBody));
+  const newPotForm = document.getElementById('newPotForm');
+  const newPotFormData = new FormData(newPotForm);
   fetch('http://localhost:6970/newPot', {
-    headers: {
-      'Content-Type': 'application/json'
-  },
     method: 'POST',
-    body: JSON.stringify(reqBody)
+    body: newPotFormData
   })
   .then(out => {
     if (out.ok) {
@@ -149,7 +133,7 @@ document.getElementById('browsePots').addEventListener('submit', function (event
         const termColumn = document.createElement('div');
         termColumn.className = 'col-6 col-sm-4 m-2 col-md-3 col-lg-2 p-2 bg-image rounded-2 collectionIcon text-light d-flex align-items-center justify-content-center align-content-center';
         termColumn.innerHTML = i.number;
-        termColumn.style.backgroundImage = "url('http://localhost:6970/images/" + i.number + "')";
+        termColumn.style.backgroundImage = 'url(\'http://localhost:6970/images/' + i.number + '\')';
         browseResults.appendChild(termColumn);
       }
       document.getElementById('browseResultsContainer').hidden = false;
