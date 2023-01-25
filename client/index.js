@@ -174,7 +174,7 @@ function collectionSearch (name) {
         }).catch(err => console.log(err));
 }
 
-// search bar functinality
+// search bar functionality
 document.getElementById('searchForAPot').addEventListener('submit', function (event) {
     event.preventDefault();
     const searchTerm = document.getElementById('searchInput').value;
@@ -203,7 +203,6 @@ for (const i of document.querySelectorAll('.colButton')) {
 }
 
 // contact me form functionality
-
 document.getElementById('contactMeForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const email = document.getElementById('contactEmail').value;
