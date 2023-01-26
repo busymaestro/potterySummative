@@ -1,1 +1,18 @@
-[{"email":"testeremail@nowhere.ac.uk","message":"testing"},{"email":"S000377@stclares.ac.uk","message":"i love your pots!"},{"email":"S000377@stclares.ac.uk","message":"hello again"},{"email":"testeremail@somewhere.com","message":"this is a postman test message"}]
+[
+  {
+    "email": "testeremail@nowhere.uk",
+    "message": "testing"
+  },
+  {
+    "email": "fakeemail@hotmail.ac.uk",
+    "message": "i love your pots!"
+  },
+  {
+    "email": "email@domain.uk",
+    "message": "hello again"
+  },
+  {
+    "email": "someone@example.com",
+    "message": "I really like the designs on the swoop and swirl collection"
+  }
+]

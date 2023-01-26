@@ -282,3 +282,10 @@ document.getElementById('contactMeForm').addEventListener('submit', function (ev
         };
     });
 });
+
+//  contact me form resubmission button
+document.getElementById('resend').addEventListener('click', function () {
+    document.getElementById('contactMeForm').reset();
+    document.getElementById('confirmMessage').hidden = true;
+    document.getElementById('contactMeForm').hidden = false;
+});
