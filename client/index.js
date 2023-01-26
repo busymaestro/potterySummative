@@ -18,7 +18,15 @@ if (document.readyState === 'loading') {
                     document.getElementById('potdBuyButton').innerHTML = 'Sold';
                     document.getElementById('potdBuyButton').disabled = true;
                 }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            console.log(err);
+            if (err.message.includes('Failed to fetch')) {
+                document.getElementById('connectionErrorMessage').hidden = false;
+                setTimeout(() => {
+                    document.getElementById('connectionErrorMessage').hidden = true;
+                }, 5000);
+            };
+        });
     });
 } else {
     fetch('http://localhost:6970/potd')
@@ -37,7 +45,15 @@ if (document.readyState === 'loading') {
                     document.getElementById('potdBuyButton').innerHTML = 'Sold';
                     document.getElementById('potdBuyButton').disabled = true;
                 }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            console.log(err);
+            if (err.message.includes('Failed to fetch')) {
+                document.getElementById('connectionErrorMessage').hidden = false;
+                setTimeout(() => {
+                    document.getElementById('connectionErrorMessage').hidden = true;
+                }, 5000);
+            };
+        });
 }
 
 //  potd buy button
@@ -56,7 +72,15 @@ document.getElementById('potdBuyButton').addEventListener('click', function () {
             document.getElementById('potdBuyButton').disabled = true;
         }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+        console.log(err);
+        if (err.message.includes('Failed to fetch')) {
+            document.getElementById('connectionErrorMessage').hidden = false;
+            setTimeout(() => {
+                document.getElementById('connectionErrorMessage').hidden = true;
+            }, 5000);
+        };
+    });
 });
 
 //  initialise MDB inputs
@@ -105,7 +129,15 @@ function singlePotSearch (number) {
                             document.getElementById('searchBuyButton').disabled = true;
                         }
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err);
+                        if (err.message.includes('Failed to fetch')) {
+                            document.getElementById('connectionErrorMessage').hidden = false;
+                            setTimeout(() => {
+                                document.getElementById('connectionErrorMessage').hidden = true;
+                            }, 5000);
+                        };
+                    });
                 });
             }
 
@@ -116,7 +148,15 @@ function singlePotSearch (number) {
             }
         }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            if (err.message.includes('Failed to fetch')) {
+                document.getElementById('connectionErrorMessage').hidden = false;
+                setTimeout(() => {
+                    document.getElementById('connectionErrorMessage').hidden = true;
+                }, 5000);
+            };
+        });
 }
 
 //  search function for a collection of pots
@@ -171,7 +211,15 @@ function collectionSearch (name) {
             }
             document.getElementById('collectionSearchResults').hidden = false;
             document.getElementById('searchContainer').hidden = false;
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            console.log(err);
+            if (err.message.includes('Failed to fetch')) {
+                document.getElementById('connectionErrorMessage').hidden = false;
+                setTimeout(() => {
+                    document.getElementById('connectionErrorMessage').hidden = true;
+                }, 5000);
+            };
+        });
 }
 
 // search bar functionality
@@ -224,5 +272,13 @@ document.getElementById('contactMeForm').addEventListener('submit', function (ev
             console.log(res);
         };
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+        console.log(err);
+        if (err.message.includes('Failed to fetch')) {
+            document.getElementById('connectionErrorMessage').hidden = false;
+            setTimeout(() => {
+                document.getElementById('connectionErrorMessage').hidden = true;
+            }, 5000);
+        };
+    });
 });

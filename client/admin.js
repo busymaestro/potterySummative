@@ -78,7 +78,12 @@ document.getElementById('newPotForm').addEventListener('submit', function (event
     if (out.ok) {
       document.getElementById('newPotForm').reset();
     }
-  });
+  }).catch(err => {
+    console.log(err);
+    if (err.message.includes('Failed to fetch')) {
+        alert('There\'s a problem with your server connection. Please try again later.');
+    };
+});
 });
 
 //  edits or creates a new collection
@@ -106,7 +111,12 @@ document.getElementById('editColForm').addEventListener('submit', function (even
     } else {
       document.getElementById('colFormError').hidden = false;
     }
-  });
+  }).catch(err => {
+    console.log(err);
+    if (err.message.includes('Failed to fetch')) {
+        alert('There\'s a problem with your server connection. Please try again later.');
+    };
+});
 });
 
 // lists and filters pots by number, price or blurb
@@ -139,5 +149,10 @@ document.getElementById('browsePots').addEventListener('submit', function (event
       document.getElementById('browseResultsContainer').hidden = false;
     }
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+    if (err.message.includes('Failed to fetch')) {
+        alert('There\'s a problem with your server connection. Please try again later.');
+    };
+});
 });

@@ -3,6 +3,15 @@
     padding-top: 2rem;
 }
 
+.connectionError {
+  bottom: 50px;
+  z-index: 5;
+  position: fixed;
+  width: 75%;
+  margin-left: 12.5%;
+  
+}
+
 .cardImage {
     max-width: 100px !important;
     height: auto;

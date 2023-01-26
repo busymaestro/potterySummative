@@ -1,14 +1,1 @@
-[
-  {
-    "email": "testeremail@nowhere.ac.uk",
-    "message": "testing"
-  },
-  {
-    "email": "S000377@stclares.ac.uk",
-    "message": "i love your pots!"
-  },
-  {
-    "email": "S000377@stclares.ac.uk",
-    "message": "hello again"
-  }
-]
+[{"email":"testeremail@nowhere.ac.uk","message":"testing"},{"email":"S000377@stclares.ac.uk","message":"i love your pots!"},{"email":"S000377@stclares.ac.uk","message":"hello again"},{"email":"testeremail@somewhere.com","message":"this is a postman test message"}]

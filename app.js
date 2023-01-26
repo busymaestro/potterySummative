@@ -24,7 +24,7 @@ const coll = JSON.parse(fs.readFileSync('collections.json', 'utf-8'));
 
 //  get route serve images
 app.get('/images/:number', (req, res) => {
-    if (isNaN(req.params.number)) {
+    if (isNaN(parseInt(req.params.number))) {
         res.status(400).send('Not a number');
         return;
     } else {
@@ -54,7 +54,7 @@ app.get('/singlePot', (req, res) => {
 
 //  get route search for a collection
 app.get('/singleCollection', (req, res) => {
-    if (req.query.name === '') {
+    if (req.query.term === '') {
         res.status(400).send('No name');
         return;
     };
@@ -78,7 +78,6 @@ app.get('/potd', (req, res) => {
 
 //  post route add message to messages.json
 app.post('/contact', (req, res) => {
-    console.log(req.body);
     const message = {
         email: req.body.email,
         message: req.body.message
@@ -91,8 +90,7 @@ app.post('/contact', (req, res) => {
 
 //  post route buys a pot
 app.post('/buy', (req, res) => {
-    console.log(req.body);
-    const number = req.body.number;
+    const number = parseInt(req.body.number);
     const pot = pots.filter(e => e.number === number);
     pot[0].sold = true;
     fs.writeFileSync('pots.json', JSON.stringify(pots));
@@ -109,7 +107,6 @@ app.get('/messages', (req, res) => {
 app.post('/newPot', fileup.single('image'), (req, res) => {
     const body = req.body;
     const imagePath = req.file.path;
-    console.log(imagePath);
     const test = pots.filter(e => e.number === body.number);
     if (test.length > 0) {
         test[0].price = body.price;
@@ -118,15 +115,13 @@ app.post('/newPot', fileup.single('image'), (req, res) => {
         test[0].collections = body.collection;
         fs.writeFileSync('pots.json', JSON.stringify(pots));
         const coltest = coll[0][body.collection];
-        console.log(coltest);
         if (coltest === undefined) {
             coll[0][body.collection] = [parseInt(body.number)];
         } else {
             coll[0][body.collection].push(parseInt(body.number));
         }
-        console.log(coll);
         fs.writeFileSync('collections.json', JSON.stringify(coll));
-        res.send('updated');
+        res.send('pot updated');
     } else {
     const newPot = {
         number: body.number,
@@ -138,15 +133,13 @@ app.post('/newPot', fileup.single('image'), (req, res) => {
     pots.push(newPot);
     fs.writeFileSync('pots.json', JSON.stringify(pots));
     const coltest = coll[0][body.collection];
-    console.log(coltest);
     if (coltest === undefined) {
         coll[0][body.collection] = [parseInt(body.number)];
     } else {
         coll[0][body.collection].push(parseInt(body.number));
     }
-    console.log(coll);
     fs.writeFileSync('collections.json', JSON.stringify(coll));
-    res.send('received');
+    res.send('pot updated');
     }
 });
 
@@ -190,7 +183,7 @@ app.post('/editCol', (req, res) => {
         insertPots(body.members, body.name);
     }
     fs.writeFileSync('collections.json', JSON.stringify(coll));
-    res.send('received');
+    res.send('collection updated');
 });
 
 //  get route for list/search
