@@ -119,6 +119,28 @@
       </div>
     </div>
 
+    <div class="container w-75">
+      <div class="maskBlurred card">
+        <div class="card-body p-5">
+          <div class="my-4">
+            <h2 class="text-center mb-5 text-white">Browse collection, or filter by name</h2>
+            <form id="browseColForm" action="#!" method="get">
+              <div class="form-outline form-white mb-4">
+                <input type="text" id="browseColTerm" class="form-control form-control-lg" required>
+                <label class="form-label" for="browseColTerm">Collection name</label>
+              </div>
+              <button type="submit" class="btn btn-light w-100 mb-4 ripple">Submit</button>
+              <div id="browseColFormError" class="note note-danger mb-4" hidden>
+                <strong>It looks there's been a problem with the form entry.</strong> Make sure the collection members are separated by commas and no spaces.
+              </div>
+            </form>
+            <div id="browseColResultsContainer" class="container-lg my-5" hidden>
+              <div id="browseColResults" class="row justify-content-center h-25"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 <script src="./MDB/js/mdb.min.js"></script>
 <script src="./admin.js"></script>

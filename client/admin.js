@@ -141,7 +141,7 @@ document.getElementById('browsePots').addEventListener('submit', function (event
       document.getElementById('browsePots').reset();
       for (const i of out) {
         const termColumn = document.createElement('div');
-        termColumn.className = 'col-6 col-sm-4 m-2 col-md-3 col-lg-2 p-2 bg-image rounded-2 collectionIcon text-light d-flex align-items-center justify-content-center align-content-center';
+        termColumn.className = 'col-6 col-sm-4 m-2 col-md-3 col-lg-2 p-2 bg-image rounded-2 collectionIcon text-light d-flex align-items-center justify-content-center align-content-center bg-dark';
         termColumn.innerHTML = i.number;
         termColumn.style.backgroundImage = 'url(\'http://localhost:6970/images/' + i.number + '\')';
         browseResults.appendChild(termColumn);
@@ -154,5 +154,41 @@ document.getElementById('browsePots').addEventListener('submit', function (event
     if (err.message.includes('Failed to fetch')) {
         alert('There\'s a problem with your server connection. Please try again later.');
     };
+  });
 });
+
+//  lists and filters collections by name
+document.getElementById('browseColForm').addEventListener('submit', function (event) {
+  event.preventDefault();
+  const inputVal = document.getElementById('browseColTerm').value;
+  fetch('http://localhost:6970/browseCollections?term=' + inputVal)
+  .then(out => out.json())
+  .then(out => {
+    const browseResults = document.getElementById('browseColResults');
+    while (browseResults.firstChild) {
+      browseResults.removeChild(browseResults.firstChild);
+    }
+    if (out.length === 0) {
+      document.getElementById('browseColFormError').hidden = false;
+      setTimeout(() => {
+        document.getElementById('browseColFormError').hidden = true;
+      }, 5000);
+    } else {
+      document.getElementById('browseColFormError').hidden = true;
+      document.getElementById('browseColForm').reset();
+      for (const i of out) {
+        const termColumn = document.createElement('div');
+        termColumn.className = 'col-6 col-sm-4 m-2 col-md-3 col-lg-2 p-2 bg-dark rounded-2 text-light d-flex align-items-center justify-content-center align-content-center';
+        termColumn.innerHTML = i.split('_').join(' ');
+        browseResults.appendChild(termColumn);
+      }
+      document.getElementById('browseColResultsContainer').hidden = false;
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    if (err.message.includes('Failed to fetch')) {
+        alert('There\'s a problem with your server connection. Please try again later.');
+    };
+  });
 });

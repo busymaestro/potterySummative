@@ -106,7 +106,8 @@ app.get('/messages', (req, res) => {
 //  ADMIN post route adds or updates a pot
 app.post('/newPot', fileup.single('image'), (req, res) => {
     const body = req.body;
-    const imagePath = req.file.path;
+    body.number = parseInt(body.number);
+    body.price = parseInt(body.price);
     const test = pots.filter(e => e.number === body.number);
     if (test.length > 0) {
         test[0].price = body.price;
@@ -186,7 +187,7 @@ app.post('/editCol', (req, res) => {
     res.send('collection updated');
 });
 
-//  get route for list/search
+//  ADMIN get route for list/search
 app.get('/browsePots', (req, res) => {
     const term = req.query.term;
     const param = req.query.param;
@@ -195,6 +196,22 @@ app.get('/browsePots', (req, res) => {
     };
     const result = pots.filter(e => e[param].toString().includes(term));
     res.send(result);
+});
+
+//  ADMIN get route to filter collections by name
+app.get('/browseCollections', (req, res) => {
+    const term = req.query.term;
+    const result = [];
+    if (term === '') {
+        res.send(coll[0]);
+    } else {
+        for (const i in coll[0]) {
+            if (i.includes(term)) {
+                result.push(i);
+            };
+        };
+        res.send(result);
+    };
 });
 
 module.exports = app;

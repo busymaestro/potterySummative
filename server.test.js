@@ -396,4 +396,19 @@ describe('test GET route to serve images at /images/:number', () => {
           expect(body.length).toBe(19);
         });
     });
+    test('GET /browseCollections succeeds', () => {
+      return request(app)
+        .get('/browseCollections?param=anagama')
+        .expect(200);
+    });
+    test('GET /browseCollections returns an object', () => {
+      return request(app)
+        .get('/browseCollections?param=anagama')
+        .expect('Content-Type', /json/);
+    });
+    test('GET /browseCollections returns the right object', () => {
+      return request(app)
+        .get('/browseCollections?param=ak')
+        .expect('Content-Length', '2');
+    });
 });
