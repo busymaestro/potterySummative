@@ -119,7 +119,9 @@ app.post('/newPot', fileup.single('image'), (req, res) => {
         if (coltest === undefined) {
             coll[0][body.collection] = [parseInt(body.number)];
         } else {
-            coll[0][body.collection].push(parseInt(body.number));
+            if (coltest.includes(parseInt(body.number)) === false) {
+                coll[0][body.collection].push(parseInt(body.number));
+            }
         }
         fs.writeFileSync('collections.json', JSON.stringify(coll));
         res.send('pot updated');
